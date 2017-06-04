@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.action.extension" value="do,action,, " />
+	<package name="default" namespace="/" extends="struts-default">
+		<!--
+			<default-action-ref name="index" />
+			<global-results>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+			</global-results>
+			<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception" result="error"/>
+			</global-exception-mappings>
+
+			<action name="index">
+			<result type="redirectAction">
+			<param name="actionName">HelloWorld</param>
+			<param name="namespace">/example</param>
+			</result>
+			</action>
+			<include file="example.xml"/>
+		-->
+		<action name="login" class="com.action.LoginAction" method="loginJudge">
+			<result name="success">/index.jsp</result>
+			<result name="fail">/fail.jsp</result>
+		</action>
+	</package>
+	
+	<package name="myPackage" namespace="/admin" extends="struts-default">
+		<!--
+			<action name="saveuser" class="com.action.UserAction" method="save">
+			<result name="user">/user.jsp</result>
+			</action>
+
+		-->
+		<action name="user_*" class="com.action.UserAction" method="{1}">
+			<result name="save" type="redirect">/list.jsp</result>
+			<result name="list">/list.jsp</result>
+			
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+			<result name="error">/error.jsp</result>
+		</action>
+		<!-- 
+		此处有错误
+		<global-exception-mappings>
+			<exception-mapping result="error"
+				exception="java.lang.NullPointerException">
+			</exception-mapping>
+		</global-exception-mappings>
+		
+		<global-results>
+			<result name="error">/error.jsp</result>
+		</global-results>
+		
+		 -->
+		
+	</package>
+	<!-- Add packages here -->
+</struts>
